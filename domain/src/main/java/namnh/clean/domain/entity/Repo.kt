@@ -7,9 +7,4 @@ data class Repo(
     val description: String?,
     val owner: Owner,
     val stars: Int
-) : BaseEntity() {
-    data class Owner(
-        val login: String,
-        val url: String?
-    )
-}
+) : BaseEntity()
