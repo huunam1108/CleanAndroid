@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CleanAndroid</string>
+    <string name="no_result">No result</string>
+    <string name="search_hint">search repositories</string>
 </resources>

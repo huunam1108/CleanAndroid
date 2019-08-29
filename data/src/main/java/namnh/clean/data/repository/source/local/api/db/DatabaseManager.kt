@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import namnh.clean.data.model.RepoData
 import namnh.clean.data.model.UserData
+import namnh.clean.data.repository.source.local.api.db.dao.RepoDao
 import namnh.clean.data.repository.source.local.api.db.dao.UserDao
 import namnh.clean.shared.DatabaseConfig
 
@@ -15,4 +16,5 @@ import namnh.clean.shared.DatabaseConfig
 @TypeConverters(/*Add converters here.*/)
 abstract class DatabaseManager : RoomDatabase() {
     abstract fun userDao(): UserDao
+    abstract fun repoDao(): RepoDao
 }

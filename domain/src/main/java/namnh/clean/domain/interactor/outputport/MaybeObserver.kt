@@ -4,7 +4,7 @@ import io.reactivex.annotations.NonNull
 import io.reactivex.functions.Action
 import io.reactivex.functions.Consumer
 
-class MaybeObserver<T> : DefaultObserver() {
+abstract class MaybeObserver<T> : DefaultObserver() {
 
     fun successConsumer(): Consumer<T> {
         return Consumer { onSuccess(it) }
@@ -14,6 +14,6 @@ class MaybeObserver<T> : DefaultObserver() {
         return Action { onComplete() }
     }
 
-    open fun onComplete() {}
-    open fun onSuccess(@NonNull data: T) {}
+    abstract fun onComplete()
+    abstract fun onSuccess(@NonNull data: T)
 }

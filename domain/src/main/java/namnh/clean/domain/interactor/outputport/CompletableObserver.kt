@@ -2,11 +2,11 @@ package namnh.clean.domain.interactor.outputport
 
 import io.reactivex.functions.Action
 
-class CompletableObserver : DefaultObserver() {
+abstract class CompletableObserver : DefaultObserver() {
 
     fun completeConsumer(): Action {
         return Action { onComplete() }
     }
 
-    open fun onComplete() {}
+    abstract fun onComplete()
 }

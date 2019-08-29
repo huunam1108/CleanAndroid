@@ -1,0 +1,71 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion Versions.compile_sdk_version
+    buildToolsVersion Versions.build_tools_version
+
+    defaultConfig {
+        applicationId "namnh.clean.github"
+        minSdkVersion Versions.min_sdk_version
+        targetSdkVersion Versions.target_sdk_version
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(":domain")
+    implementation project(":data")
+    implementation project(":shared")
+    implementation Deps.kotlin_stdlib
+    implementation Deps.support_app_compat
+    implementation Deps.support_core_ktx
+    implementation Deps.support_core_utils
+    implementation Deps.constraint_layout
+    implementation Deps.support_design
+    implementation Deps.support_recyclerview
+
+    implementation Deps.support_fragment_runtime_ktx
+    implementation Deps.support_fragment_runtime
+    implementation Deps.support_fragment_testing
+
+    implementation Deps.timber
+
+    kapt Deps.lifecycle_compiler
+    implementation Deps.lifecycle_runtime
+    implementation Deps.lifecycle_viewmodel_ktx
+    implementation Deps.lifecycle_extension
+    implementation Deps.lifecycle_java8
+
+    implementation Deps.arch_core_runtime
+    implementation Deps.arch_core_testing
+
+    implementation Deps.rxjava2
+    implementation Deps.rx_android
+    implementation Deps.javax_inject
+
+    implementation Deps.dagger_android
+    implementation Deps.dagger_android_support
+    implementation Deps.dagger_runtime
+    kapt Deps.dagger_android_support_compiler
+    kapt Deps.dagger_compiler
+
+    testImplementation Deps.junit
+    androidTestImplementation Deps.atsl_runner
+    androidTestImplementation Deps.espresso_core
+}

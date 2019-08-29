@@ -3,6 +3,8 @@ package namnh.clean.data.model
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Index
+import androidx.room.PrimaryKey
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import namnh.clean.domain.entity.Owner
 import namnh.clean.domain.entity.Repo
@@ -11,34 +13,30 @@ import namnh.clean.domain.entity.Repo
     indices = [
         Index("id"),
         Index("owner_login")],
-    primaryKeys = ["name", "owner_login"]
+    primaryKeys = ["name", "owner_login"],
+    tableName = "repo"
 )
 data class RepoData(
+    @Expose
+    @SerializedName("id")
     val id: Int,
-    @field:SerializedName("name")
+    @Expose
+    @SerializedName("name")
     val name: String,
-    @field:SerializedName("full_name")
+    @Expose
+    @SerializedName("full_name")
     val fullName: String,
-    @field:SerializedName("description")
+    @Expose
+    @SerializedName("description")
     val description: String?,
-    @field:SerializedName("owner")
-    @field:Embedded(prefix = "owner_")
+    @Expose
+    @SerializedName("owner")
+    @Embedded(prefix = "owner_")
     val owner: OwnerData,
-    @field:SerializedName("stargazers_count")
+    @Expose
+    @SerializedName("stargazers_count")
     val stars: Int
-) : BaseData(), MapAble<Repo> {
-
-    data class OwnerData(
-        @field:SerializedName("login")
-        val login: String,
-        @field:SerializedName("url")
-        val url: String?
-    ) : MapAble<Owner> {
-
-        override fun map(): Owner {
-            return Owner(login, url)
-        }
-    }
+) : BaseData(), MapAbleData<Repo> {
 
     override fun map(): Repo {
         return Repo(
@@ -49,9 +47,5 @@ data class RepoData(
             owner = owner.map(),
             stars = stars
         )
-    }
-
-    companion object {
-        const val UNKNOWN_ID = -1
     }
 }

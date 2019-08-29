@@ -1,4 +1,4 @@
-package namnh.clean
+package namnh.clean.gihub
 
 import org.junit.Test
 

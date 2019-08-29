@@ -18,6 +18,6 @@ abstract class DefaultObserver {
     }
 
     open fun onSubscribe() {}
-    open fun onError(throwable: Throwable) {}
     open fun doFinally() {}
+    abstract fun onError(throwable: Throwable)
 }

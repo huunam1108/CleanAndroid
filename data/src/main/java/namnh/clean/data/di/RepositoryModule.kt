@@ -6,6 +6,7 @@ import androidx.room.Room
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
+import namnh.clean.data.model.DataMapper
 import namnh.clean.data.repository.RepoRepositoryImpl
 import namnh.clean.data.repository.UserRepositoryImpl
 import namnh.clean.data.repository.source.local.RepoLocalDataSource
@@ -23,8 +24,10 @@ import namnh.clean.domain.repository.UserRepository
 import namnh.clean.shared.DatabaseConfig
 import javax.inject.Singleton
 
+@Suppress("unused")
 @Module
 class RepositoryModule {
+
     @Singleton
     @Provides
     fun provideSharedPrefApi(context: Context, gson: Gson): SharedPrefApi {
@@ -35,18 +38,20 @@ class RepositoryModule {
     @Provides
     fun provideUserRepository(
         remoteDataSource: UserRemoteDataSource,
-        localDataSource: UserLocalDataSource
+        localDataSource: UserLocalDataSource,
+        dataMapper: DataMapper
     ): UserRepository {
-        return UserRepositoryImpl(remoteDataSource, localDataSource)
+        return UserRepositoryImpl(remoteDataSource, localDataSource, dataMapper)
     }
 
     @Singleton
     @Provides
     fun provideRepoRepository(
         remoteDataSource: RepoRemoteDataSource,
-        localDataSource: RepoLocalDataSource
+        localDataSource: RepoLocalDataSource,
+        dataMapper: DataMapper
     ): RepoRepository {
-        return RepoRepositoryImpl(remoteDataSource, localDataSource)
+        return RepoRepositoryImpl(remoteDataSource, localDataSource, dataMapper)
     }
 
     @Singleton
@@ -59,7 +64,8 @@ class RepositoryModule {
     @Provides
     fun provideDatabaseManager(context: Context): DatabaseManager {
         return Room.databaseBuilder(
-            context, DatabaseManager::class.java,
+            context,
+            DatabaseManager::class.java,
             DatabaseConfig.DATABASE_NAME
         ).addMigrations(
             MigrationManager.MIGRATION_1_2

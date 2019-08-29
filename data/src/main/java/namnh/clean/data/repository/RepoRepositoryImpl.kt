@@ -1,7 +1,7 @@
 package namnh.clean.data.repository
 
 import io.reactivex.Single
-import namnh.clean.data.model.collectionMap
+import namnh.clean.data.model.DataMapper
 import namnh.clean.data.repository.source.local.RepoLocalDataSource
 import namnh.clean.data.repository.source.remote.RepoRemoteDataSource
 import namnh.clean.domain.entity.Repo
@@ -10,12 +10,16 @@ import javax.inject.Inject
 
 class RepoRepositoryImpl @Inject constructor(
     private val remoteDataSource: RepoRemoteDataSource,
-    private val localDataSource: RepoLocalDataSource
+    private val localDataSource: RepoLocalDataSource,
+    private val dataMapper: DataMapper
 ) : RepoRepository {
 
     override fun search(query: String, page: Int): Single<List<Repo>> {
         return remoteDataSource.searchRepos(query, page).map { responses ->
-            responses.items.collectionMap()
-        }
+            responses.items.map {
+                localDataSource.saveRepos(it)
+            }
+            responses.items
+        }.map(dataMapper.collectionMap())
     }
 }

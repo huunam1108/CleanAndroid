@@ -18,12 +18,14 @@ class SharedPrefApiImpl(context: Context, private val gson: Gson) : SharedPrefAp
     }
 
     override fun registerOnSharedPreferenceChangeListener(
-        listener: SharedPreferences.OnSharedPreferenceChangeListener) {
+        listener: SharedPreferences.OnSharedPreferenceChangeListener
+    ) {
         sharedPreferences.registerOnSharedPreferenceChangeListener(listener)
     }
 
     override fun unregisterOnSharedPreferenceChangeListener(
-        listener: SharedPreferences.OnSharedPreferenceChangeListener) {
+        listener: SharedPreferences.OnSharedPreferenceChangeListener
+    ) {
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(listener)
     }
 
@@ -32,7 +34,7 @@ class SharedPrefApiImpl(context: Context, private val gson: Gson) : SharedPrefAp
      */
     override fun <T> singlePref(action: (SingleEmitter<in T>) -> Unit): Single<T> {
         return Single.create(SingleOnSubscribe<T> { emitter ->
-            action.invoke(emitter)
+            action(emitter)
         }).subscribeOn(Schedulers.io())
     }
 
@@ -42,7 +44,7 @@ class SharedPrefApiImpl(context: Context, private val gson: Gson) : SharedPrefAp
     override fun completablePref(action: (SharedPrefApi) -> Unit): Completable {
         return Completable.create { emitter ->
             try {
-                action.invoke(this)
+                action(this)
                 emitter.onComplete()
             } catch (e: Exception) {
                 emitter.onError(e)
@@ -68,21 +70,23 @@ class SharedPrefApiImpl(context: Context, private val gson: Gson) : SharedPrefAp
         return when (type) {
             String::class.java -> sharedPreferences.getString(key, default as? String) as T
             Boolean::class.java -> java.lang.Boolean.valueOf(
-                sharedPreferences.getBoolean(key, default as? Boolean ?: false)) as T
+                sharedPreferences.getBoolean(key, default as? Boolean ?: false)
+            ) as T
             Float::class.java -> java.lang.Float.valueOf(
-                sharedPreferences.getFloat(key, default as? Float ?: 0f)) as T
+                sharedPreferences.getFloat(key, default as? Float ?: 0f)
+            ) as T
             Int::class.java -> Integer.valueOf(
-                sharedPreferences.getInt(key, default as? Int ?: 0)) as T
+                sharedPreferences.getInt(key, default as? Int ?: 0)
+            ) as T
             Long::class.java -> java.lang.Long.valueOf(
-                sharedPreferences.getLong(key, default as? Long ?: 0L)) as T
+                sharedPreferences.getLong(key, default as? Long ?: 0L)
+            ) as T
             else -> gson.fromJson(sharedPreferences.getString(key, default as? String), type)
         }
     }
 
     override fun <T> putList(key: String, list: List<T>) {
-        val editor = sharedPreferences.edit()
-        editor.putString(key, gson.toJson(list))
-        editor.apply()
+        sharedPreferences.edit().putString(key, gson.toJson(list)).apply()
     }
 
     override fun <T> getList(key: String, clazz: Class<T>): List<T>? {
@@ -91,10 +95,7 @@ class SharedPrefApiImpl(context: Context, private val gson: Gson) : SharedPrefAp
     }
 
     override fun removeKey(key: String) {
-        sharedPreferences.edit().let {
-            it.remove(key)
-            it.apply()
-        }
+        sharedPreferences.edit().remove(key).apply()
     }
 
     override fun clear() {

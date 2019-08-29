@@ -1,19 +1,20 @@
 package namnh.clean.domain.interactor.usecase
 
-import io.reactivex.Maybe
+import io.reactivex.Single
 import namnh.clean.domain.entity.Repo
 import namnh.clean.domain.executor.PostExecutionThread
 import namnh.clean.domain.executor.ThreadExecutor
-import namnh.clean.domain.interactor.inputport.MaybeUseCase
+import namnh.clean.domain.interactor.inputport.SingleUseCase
 import namnh.clean.domain.repository.RepoRepository
+import javax.inject.Inject
 
-class SearchReposUseCase(
+class SearchReposUseCase @Inject constructor(
     threadExecutor: ThreadExecutor,
     postExecutionThread: PostExecutionThread,
     private val repoRepository: RepoRepository
-) : MaybeUseCase<SearchReposUseCase.Input, List<Repo>>(threadExecutor, postExecutionThread) {
+) : SingleUseCase<SearchReposUseCase.Input, List<Repo>>(threadExecutor, postExecutionThread) {
 
-    override fun buildUseCase(input: Input): Maybe<List<Repo>> {
+    override fun buildUseCase(input: Input): Single<List<Repo>> {
         return repoRepository.search(input.query, input.page)
     }
 
