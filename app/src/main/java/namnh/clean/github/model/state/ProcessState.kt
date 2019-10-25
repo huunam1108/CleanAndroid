@@ -23,8 +23,3 @@ data class ProcessState<out T>(
     }
 }
 
-object Loading : Status()
-object Finish : Status()
-object Success : Status()
-object Error : Status()
-sealed class Status

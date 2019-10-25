@@ -6,9 +6,8 @@ import namnh.clean.data.repository.source.local.RepoLocalDataSource
 import namnh.clean.data.repository.source.remote.RepoRemoteDataSource
 import namnh.clean.domain.entity.Repo
 import namnh.clean.domain.repository.RepoRepository
-import javax.inject.Inject
 
-class RepoRepositoryImpl @Inject constructor(
+class RepoRepositoryImpl(
     private val remoteDataSource: RepoRemoteDataSource,
     private val localDataSource: RepoLocalDataSource,
     private val dataMapper: DataMapper

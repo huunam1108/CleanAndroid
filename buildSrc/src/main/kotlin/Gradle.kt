@@ -1,3 +1,5 @@
+
+@Suppress("unused")
 object Versions {
     const val kotlin = "1.3.41"
     const val android_gradle_plugin = "3.5.0"
@@ -42,13 +44,17 @@ object Versions {
     const val timber = "4.5.1"
     const val work = "2.1.0"
     const val javax_inject = "1@jar"
+
+    const val koin = "2.0.1"
 }
 
+@Suppress("unused")
 object ClassPaths {
     const val android_gradle_plugin = "com.android.tools.build:gradle:${Versions.android_gradle_plugin}"
     const val kotlin_gradle_plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
 }
 
+@Suppress("unused")
 object Deps {
     const val benchmark = "androidx.benchmark:benchmark-junit4:${Versions.benchmark}"
     const val benchmark_gradle = "androidx.benchmark:benchmark-gradle-plugin:${Versions.benchmark}"
@@ -138,4 +144,8 @@ object Deps {
     const val navigation_ui = "androidx.navigation:navigation-ui:${Versions.navigation}"
     const val navigation_ui_ktx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
     const val navigation_safe_args_plugin = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation}"
+
+    const val koin_android = "org.koin:koin-androidx-scope:${Versions.koin}"
+    const val koin_viewmodel =  "org.koin:koin-androidx-viewmodel:${Versions.koin}"
+    const val koin_ext =  "org.koin:koin-androidx-ext:${Versions.koin}"
 }

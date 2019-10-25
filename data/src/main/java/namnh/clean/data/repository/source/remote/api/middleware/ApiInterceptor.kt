@@ -5,7 +5,7 @@ import okhttp3.Request
 import okhttp3.Response
 import javax.inject.Inject
 
-open class ApiInterceptor @Inject constructor(private val userAgent: UserAgent) : Interceptor {
+open class ApiInterceptor(private val userAgent: UserAgent) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         return chain.proceed(buildRequest(chain))

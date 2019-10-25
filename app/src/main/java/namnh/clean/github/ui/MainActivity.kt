@@ -1,11 +1,11 @@
 package namnh.clean.github.ui
 
 import android.os.Bundle
-import dagger.android.support.DaggerAppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import namnh.clean.github.R
 import namnh.clean.github.ui.searchrepo.SearchRepoFragment
 
-class MainActivity : DaggerAppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

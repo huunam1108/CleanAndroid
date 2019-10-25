@@ -6,9 +6,8 @@ import namnh.clean.domain.executor.PostExecutionThread
 import namnh.clean.domain.executor.ThreadExecutor
 import namnh.clean.domain.interactor.inputport.SingleUseCase
 import namnh.clean.domain.repository.RepoRepository
-import javax.inject.Inject
 
-class SearchReposUseCase @Inject constructor(
+class SearchReposUseCase(
     threadExecutor: ThreadExecutor,
     postExecutionThread: PostExecutionThread,
     private val repoRepository: RepoRepository

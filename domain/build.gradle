@@ -8,7 +8,5 @@ dependencies {
     implementation Deps.timber
 
     implementation Deps.rxjava2
-    implementation Deps.javax_inject
-
     testImplementation Deps.junit
 }

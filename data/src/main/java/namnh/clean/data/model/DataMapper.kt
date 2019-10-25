@@ -1,10 +1,9 @@
 package namnh.clean.data.model
 
 import namnh.clean.domain.entity.BaseEntity
-import javax.inject.Inject
 
 @Suppress("unused")
-open class DataMapper @Inject constructor() {
+open class DataMapper {
 
     open fun <R : BaseEntity> map(): (MapAbleData<R>) -> R = {
         it.map()

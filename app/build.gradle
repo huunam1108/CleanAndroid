@@ -57,13 +57,10 @@ dependencies {
 
     implementation Deps.rxjava2
     implementation Deps.rx_android
-    implementation Deps.javax_inject
 
-    implementation Deps.dagger_android
-    implementation Deps.dagger_android_support
-    implementation Deps.dagger_runtime
-    kapt Deps.dagger_android_support_compiler
-    kapt Deps.dagger_compiler
+    implementation Deps.koin_android
+    implementation Deps.koin_viewmodel
+    implementation Deps.koin_ext
 
     testImplementation Deps.junit
     androidTestImplementation Deps.atsl_runner

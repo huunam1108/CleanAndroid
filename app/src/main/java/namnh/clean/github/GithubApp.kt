@@ -1,11 +1,24 @@
 package namnh.clean.github
 
-import dagger.android.AndroidInjector
-import dagger.android.support.DaggerApplication
-import namnh.clean.github.di.DaggerAppComponent
+import android.app.Application
+import namnh.clean.data.di.networkModule
+import namnh.clean.data.di.repositoryModule
+import namnh.clean.github.di.appModule
+import namnh.clean.github.di.mapperModule
+import namnh.clean.github.di.viewModelModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 
-class GithubApp : DaggerApplication() {
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerAppComponent.builder().application(this).build()
+class GithubApp : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        val modules =
+            listOf(appModule, repositoryModule, networkModule, mapperModule, viewModelModule)
+        startKoin {
+            androidLogger()
+            androidContext(this@GithubApp)
+            modules(modules)
+        }
     }
 }

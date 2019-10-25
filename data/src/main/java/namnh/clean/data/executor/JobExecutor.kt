@@ -5,9 +5,8 @@ import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadFactory
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
-class JobExecutor @Inject constructor() : ThreadExecutor {
+class JobExecutor : ThreadExecutor {
 
     private val workQueue = LinkedBlockingQueue<Runnable>()
     private val threadFactory = JobThreadFactory()

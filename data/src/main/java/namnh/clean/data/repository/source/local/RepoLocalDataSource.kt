@@ -4,9 +4,8 @@ import io.reactivex.Single
 import namnh.clean.data.model.RepoData
 import namnh.clean.data.repository.source.local.api.DatabaseApi
 import namnh.clean.data.repository.source.local.api.SharedPrefApi
-import javax.inject.Inject
 
-class RepoLocalDataSource @Inject constructor(
+class RepoLocalDataSource(
     private val githubDb: DatabaseApi,
     private val sharedPref: SharedPrefApi
 ) {

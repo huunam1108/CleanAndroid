@@ -6,9 +6,8 @@ import namnh.clean.data.repository.source.local.UserLocalDataSource
 import namnh.clean.data.repository.source.remote.UserRemoteDataSource
 import namnh.clean.domain.entity.User
 import namnh.clean.domain.repository.UserRepository
-import javax.inject.Inject
 
-class UserRepositoryImpl @Inject constructor(
+class UserRepositoryImpl(
     private val remoteDataSource: UserRemoteDataSource,
     private val localDataSource: UserLocalDataSource,
     private val dataMapper: DataMapper

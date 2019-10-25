@@ -13,9 +13,8 @@ import namnh.clean.github.ui.searchrepo.adapter.SearchRepoItem
 import namnh.clean.shared.adapter.RecyclerViewItem
 import namnh.clean.shared.util.AbsentLiveData
 import java.util.*
-import javax.inject.Inject
 
-class SearchRepoViewModel @Inject constructor(
+class SearchRepoViewModel(
     private val searchReposUseCase: SearchReposUseCase,
     private val repoModelMapper: RepoModelMapper
 ) : ViewModel() {

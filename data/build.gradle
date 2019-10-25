@@ -40,20 +40,16 @@ dependencies {
     implementation Deps.javax_inject
 
     kapt Deps.room_compiler
-    api Deps.room_runtime
-    api Deps.room_rxjava2
-    api Deps.room_testing
+    implementation Deps.room_runtime
+    implementation Deps.room_rxjava2
+    implementation Deps.room_testing
 
-    api Deps.retrofit_runtime
-    api Deps.retrofit_gson
-    api Deps.okhttp_logging_interceptor
-    api Deps.retrofit_adapter
+    implementation Deps.retrofit_runtime
+    implementation Deps.retrofit_gson
+    implementation Deps.okhttp_logging_interceptor
+    implementation Deps.retrofit_adapter
 
-    implementation Deps.dagger_android
-    implementation Deps.dagger_android_support
-    implementation Deps.dagger_runtime
-    kapt Deps.dagger_android_support_compiler
-    kapt Deps.dagger_compiler
+    implementation Deps.koin_android
 
     testImplementation Deps.junit
     androidTestImplementation Deps.atsl_runner

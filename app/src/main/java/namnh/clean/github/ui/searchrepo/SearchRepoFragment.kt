@@ -10,10 +10,9 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_search_repo.*
 import namnh.clean.github.R
 import namnh.clean.github.model.state.Error
@@ -25,22 +24,16 @@ import namnh.clean.shared.adapter.loadmore.LoadMoreAdapter
 import namnh.clean.shared.adapter.loadmore.LoadMoreController
 import namnh.clean.shared.adapter.loadmore.LoadMoreWrapper
 import namnh.clean.shared.util.autoCleared
-import javax.inject.Inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SearchRepoFragment : DaggerFragment() {
+class SearchRepoFragment : Fragment() {
 
     companion object {
         const val INITIAL_PAGE = 1
         fun newInstance() = SearchRepoFragment()
     }
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private val viewModel: SearchRepoViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory).get(SearchRepoViewModel::class.java)
-    }
-
+    private val searchRepoViewModel: SearchRepoViewModel by viewModel()
     private var repoAdapter by autoCleared<SearchRepoAdapter>()
     private var loadMoreController: LoadMoreController? = null
     private var currentPage: Int = INITIAL_PAGE
@@ -73,13 +66,13 @@ class SearchRepoFragment : DaggerFragment() {
                 override fun onLoadMore() {
                     // FIXME: This just for sample app, don't do this
                     currentPage += 1
-                    viewModel.reqNextPage(currentPage)
+                    searchRepoViewModel.reqNextPage(currentPage)
                 }
             }).into(rv_repos)
     }
 
     private fun observers() {
-        viewModel.results.observe(this, Observer { state ->
+        searchRepoViewModel.results.observe(this, Observer { state ->
             when (state.status) {
                 is Loading -> {
                     progress.visibility = View.VISIBLE
@@ -115,7 +108,7 @@ class SearchRepoFragment : DaggerFragment() {
 
     private fun doSearch(textView: TextView) {
         dismissKeyboard(textView.windowToken)
-        viewModel.setQuery(textView.text.toString())
+        searchRepoViewModel.setQuery(textView.text.toString())
     }
 
     private fun dismissKeyboard(windowToken: IBinder) {

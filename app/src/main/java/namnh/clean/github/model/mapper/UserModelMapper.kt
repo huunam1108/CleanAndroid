@@ -2,9 +2,8 @@ package namnh.clean.github.model.mapper
 
 import namnh.clean.domain.entity.User
 import namnh.clean.github.model.UserModel
-import javax.inject.Inject
 
-class UserModelMapper @Inject constructor() : PresentationMapper<User, UserModel>() {
+class UserModelMapper : PresentationMapper<User, UserModel>() {
 
     override fun map(entity: User): UserModel {
         return UserModel(
