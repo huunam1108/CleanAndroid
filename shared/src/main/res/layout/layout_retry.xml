@@ -7,7 +7,7 @@
     android:ellipsize="end"
     android:gravity="center"
     android:maxLines="2"
-    android:padding="10dp"
+    android:padding="@dimen/dp_10"
     android:text="@string/try_again"
-    android:textSize="16sp"
+    android:textSize="@dimen/sp_16"
     />

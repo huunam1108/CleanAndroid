@@ -55,6 +55,20 @@ object ClassPaths {
 }
 
 @Suppress("unused")
+object Plugins {
+    const val androidApp = "com.android.application"
+    const val kotlin = "kotlin"
+    const val kotlinAndroid = "android"
+    const val kotlinExt = "android.extensions"
+    const val kotlinApt = "kapt"
+    const val javalib = "java-library"
+    const val androidLib = "com.android.library"
+    const val apolloAndroid = "com.apollographql.android"
+    const val navigationSafeArgs = "androidx.navigation.safeargs.kotlin"
+    const val googleServices = "com.google.gms.google-services"
+}
+
+@Suppress("unused")
 object Deps {
     const val benchmark = "androidx.benchmark:benchmark-junit4:${Versions.benchmark}"
     const val benchmark_gradle = "androidx.benchmark:benchmark-gradle-plugin:${Versions.benchmark}"
