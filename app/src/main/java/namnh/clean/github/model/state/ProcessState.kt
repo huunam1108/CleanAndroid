@@ -1,8 +1,10 @@
 package namnh.clean.github.model.state
 
 data class ProcessState<out T>(
-    val status: Status, val data: T? = null,
-    val throwable: Throwable? = null, val message: String? = null
+    val status: Status,
+    val data: T? = null,
+    val throwable: Throwable? = null,
+    val message: String? = null
 ) {
     companion object {
         fun <T> success(data: T? = null): ProcessState<T> {
@@ -22,4 +24,3 @@ data class ProcessState<out T>(
         }
     }
 }
-

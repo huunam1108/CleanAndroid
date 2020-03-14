@@ -8,4 +8,3 @@ data class RepoModel(
     val owner: OwnerModel,
     val stars: Int
 ) : PresentationModel()
-

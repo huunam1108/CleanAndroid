@@ -18,8 +18,7 @@ import namnh.clean.data.repository.source.remote.RepoRemoteDataSource
 import namnh.clean.data.repository.source.remote.UserRemoteDataSource
 import namnh.clean.domain.repository.RepoRepository
 import namnh.clean.domain.repository.UserRepository
-import namnh.clean.shared.DatabaseConfig
-import org.koin.android.ext.koin.androidContext
+import namnh.clean.shared.config.DatabaseConfig
 import org.koin.dsl.module
 
 private fun appDatabase(context: Context): DatabaseManager = Room.databaseBuilder(
@@ -34,7 +33,7 @@ private fun contentResolver(context: Context): ContentResolver = context.content
 
 val repositoryModule = module {
 
-    //androidContext()
+    // androidContext()
     single<SharedPrefApi> { SharedPrefApiImpl(/*context*/get(), /*gson*/get()) }
     single<DatabaseApi> { DatabaseApiImpl(/*DatabaseManager*/get()) }
 

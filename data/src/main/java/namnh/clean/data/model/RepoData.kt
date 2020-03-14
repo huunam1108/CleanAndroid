@@ -3,10 +3,8 @@ package namnh.clean.data.model
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Index
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import namnh.clean.domain.entity.Owner
 import namnh.clean.domain.entity.Repo
 
 @Entity(

@@ -1,0 +1,34 @@
+version: 2.1
+#jobs:
+#  build:
+#    working_directory: ~/CleanAndroid
+#    docker:
+#      - image: circleci/android:api-28
+#    environment:
+#      GRADLE_OPTS: -Xmx4g -Dorg.gradle.daemon=false
+#      JVM_OPTS: -Xmx4g
+#    steps:
+#      - checkout
+#      - restore_cache:
+#          key: gradle-{{ checksum "build.gradle.kts" }}-{{ checksum  "buildSrc/src/main/kotlin/Config.kt" }}-{{ checksum  "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "app/build.gradle.kts" }}-{{ checksum "data/build.gradle.kts" }}-{{ checksum "domain/build.gradle.kts" }}-{{ checksum "shared/build.gradle.kts" }}
+#            # - run:
+#            #     name: Run Detekt
+#          #     command: ./gradlew detekt
+#          # reports at app/build/reports/detekt/...html
+#      # TODO: Custom rule set before enable this
+#      - run:
+#          name: Run Ktlint
+#          command: ./gradlew ktlintCheck
+#          # reports at app/build/reports/ktlint/ktlint.html
+#      - run:
+#          name: Run Lint
+#          command: ./gradlew lintDevelopDebug
+#          # reports at app/build/reports/lint-results-...html
+#      - run:
+#          name: Run Unit Tests
+#          command: ./gradlew testDevelopDebugUnitTest
+#          # reports at app/build/reports/tests/.../index.html
+#      - save_cache:
+#          paths:
+#            - ~/.gradle
+#          key: gradle-{{ checksum "build.gradle.kts" }}-{{ checksum  "buildSrc/src/main/kotlin/Config.kt" }}-{{ checksum  "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "app/build.gradle.kts" }}-{{ checksum "data/build.gradle.kts" }}-{{ checksum "domain/build.gradle.kts" }}-{{ checksum "shared/build.gradle.kts" }}

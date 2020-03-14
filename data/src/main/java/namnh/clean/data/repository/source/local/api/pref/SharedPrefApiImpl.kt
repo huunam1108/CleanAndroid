@@ -66,21 +66,21 @@ class SharedPrefApiImpl(context: Context, private val gson: Gson) : SharedPrefAp
     }
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T> get(key: String, type: Class<T>, default: T?): T {
+    override fun <T> get(key: String, type: Class<T>, default: T?): T? {
         return when (type) {
-            String::class.java -> sharedPreferences.getString(key, default as? String) as T
+            String::class.java -> sharedPreferences.getString(key, default as? String) as? T
             Boolean::class.java -> java.lang.Boolean.valueOf(
                 sharedPreferences.getBoolean(key, default as? Boolean ?: false)
-            ) as T
+            ) as? T
             Float::class.java -> java.lang.Float.valueOf(
                 sharedPreferences.getFloat(key, default as? Float ?: 0f)
-            ) as T
+            ) as? T
             Int::class.java -> Integer.valueOf(
                 sharedPreferences.getInt(key, default as? Int ?: 0)
-            ) as T
+            ) as? T
             Long::class.java -> java.lang.Long.valueOf(
                 sharedPreferences.getLong(key, default as? Long ?: 0L)
-            ) as T
+            ) as? T
             else -> gson.fromJson(sharedPreferences.getString(key, default as? String), type)
         }
     }

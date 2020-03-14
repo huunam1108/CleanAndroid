@@ -1,5 +1,6 @@
 package namnh.clean.github.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import namnh.clean.github.R
@@ -15,5 +16,19 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, SearchRepoFragment.newInstance())
                 .commitNow()
         }
+
+        handleIntent(intent, false)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        handleIntent(intent, true)
+    }
+
+    /**
+     * @param intent: the intent start activity
+     * @param fromNewIntent: true if click notification when app background, otherwise app is killed.
+     */
+    private fun handleIntent(intent: Intent?, fromNewIntent: Boolean) {
     }
 }

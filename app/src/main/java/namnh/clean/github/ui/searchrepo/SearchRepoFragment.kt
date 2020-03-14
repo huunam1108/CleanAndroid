@@ -28,18 +28,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchRepoFragment : Fragment() {
 
-    companion object {
-        const val INITIAL_PAGE = 1
-        fun newInstance() = SearchRepoFragment()
-    }
-
     private val searchRepoViewModel: SearchRepoViewModel by viewModel()
     private var repoAdapter by autoCleared<SearchRepoAdapter>()
     private var loadMoreController: LoadMoreController? = null
     private var currentPage: Int = INITIAL_PAGE
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         return inflater.inflate(R.layout.fragment_search_repo, container, false)
@@ -72,7 +68,7 @@ class SearchRepoFragment : Fragment() {
     }
 
     private fun observers() {
-        searchRepoViewModel.results.observe(this, Observer { state ->
+        searchRepoViewModel.results.observe(viewLifecycleOwner, Observer { state ->
             when (state.status) {
                 is Loading -> {
                     progress.visibility = View.VISIBLE
@@ -114,5 +110,10 @@ class SearchRepoFragment : Fragment() {
     private fun dismissKeyboard(windowToken: IBinder) {
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
         imm?.hideSoftInputFromWindow(windowToken, 0)
+    }
+
+    companion object {
+        const val INITIAL_PAGE = 1
+        fun newInstance() = SearchRepoFragment()
     }
 }

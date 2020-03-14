@@ -3,7 +3,6 @@ package namnh.clean.data.repository.source.remote.api.middleware
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
-import javax.inject.Inject
 
 open class ApiInterceptor(private val userAgent: UserAgent) : Interceptor {
 

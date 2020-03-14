@@ -1,2 +1,2 @@
-include ":data", ":domain", ":shared", ":app"
+include ":domain", ":shared", ":data",  ":app"
 rootProject.name = "CleanAndroid"

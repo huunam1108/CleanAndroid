@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import java.util.*
 import namnh.clean.domain.entity.Repo
 import namnh.clean.domain.interactor.outputport.SingleObserver
 import namnh.clean.domain.interactor.usecase.SearchReposUseCase
@@ -11,8 +12,7 @@ import namnh.clean.github.model.mapper.RepoModelMapper
 import namnh.clean.github.model.state.ProcessState
 import namnh.clean.github.ui.searchrepo.adapter.SearchRepoItem
 import namnh.clean.shared.adapter.RecyclerViewItem
-import namnh.clean.shared.util.AbsentLiveData
-import java.util.*
+import namnh.clean.shared.livedata.AbsentLiveData
 
 class SearchRepoViewModel(
     private val searchReposUseCase: SearchReposUseCase,

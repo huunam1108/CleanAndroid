@@ -4,9 +4,8 @@ import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-open class BaseViewHolder<T : RecyclerViewItem>(itemView: View) : RecyclerView.ViewHolder(
-    itemView
-) {
+open class BaseViewHolder<T : RecyclerViewItem>(itemView: View) :
+    RecyclerView.ViewHolder(itemView) {
 
     protected val context: Context? = itemView.context
 

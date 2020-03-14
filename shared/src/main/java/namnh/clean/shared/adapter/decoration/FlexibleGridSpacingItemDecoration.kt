@@ -15,8 +15,10 @@ class FlexibleGridSpacingItemDecoration(
     private var horizontalSpaces: IntArray? = null
 
     override fun getItemOffsets(
-        outRect: Rect, view: View,
-        parent: RecyclerView, state: RecyclerView.State
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
     ) {
         val layoutManager = parent.layoutManager as GridLayoutManager
         val spanCount = getSpanCount(layoutManager)
@@ -61,7 +63,10 @@ class FlexibleGridSpacingItemDecoration(
     }
 
     private fun initHorizontalSpaces(
-        spanCount: Int, recyclerWidth: Int, start: Int, end: Int,
+        spanCount: Int,
+        recyclerWidth: Int,
+        start: Int,
+        end: Int,
         middle: Int
     ): IntArray {
         val horizontalSpaces = IntArray(spanCount * 2)

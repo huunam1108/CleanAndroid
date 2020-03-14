@@ -1,11 +1,19 @@
 plugins {
-    id("com.android.library")
+    id(Plugins.androidLib)
     kotlin(Plugins.kotlinAndroid)
     kotlin(Plugins.kotlinExt)
+    id(Plugins.detekt).version(Versions.detekt)
 }
 
 buildscript {
-    apply(from = "autodimension.gradle.kts")
+    apply(from = "../ktlint.gradle.kts")
+}
+
+tasks {
+    check {
+        dependsOn("ktlintCheck")
+        dependsOn("ktlintFormat")
+    }
 }
 
 android {
@@ -35,18 +43,10 @@ android {
 
 }
 
-tasks {
-    clean {
-        dependsOn("createDimen")
-        mustRunAfter("createDimen")
-    }
-}
-
 dependencies {
     implementation(Deps.kotlin_stdlib)
     implementation(Deps.support_app_compat)
     implementation(Deps.support_core_ktx)
-    implementation(Deps.support_core_utils)
     implementation(Deps.support_design)
     implementation(Deps.support_recyclerview)
 

@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import namnh.clean.shared.R
 
 class LoadMoreAdapter internal constructor(
-    adapter: RecyclerView.Adapter<*>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    adapter: RecyclerView.Adapter<*>
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var progressView: View? = null
     private var progressResId = View.NO_ID
@@ -41,7 +42,6 @@ class LoadMoreAdapter internal constructor(
     private var showReachEnd: Boolean = false
     private var isLoadFailed: Boolean = false
     private var hasReachedEnd: Boolean = false
-
 
     /**
      * Deciding whether to trigger loading
@@ -241,13 +241,15 @@ class LoadMoreAdapter internal constructor(
             }
             else -> return originalAdapter.onCreateViewHolder(parent, viewType)
         }
-
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {}
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int,
-        payloads: List<Any>) {
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+        payloads: List<Any>
+    ) {
         when (holder) {
             is ProgressHolder -> {
                 // TODO Checking later
@@ -327,9 +329,9 @@ class LoadMoreAdapter internal constructor(
             layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
                     val itemViewType = getItemViewType(position)
-                    if (itemViewType == TYPE_PROGRESS
-                        || itemViewType == TYPE_REACH_END
-                        || itemViewType == TYPE_LOAD_FAILED) {
+                    if (itemViewType == TYPE_PROGRESS ||
+                        itemViewType == TYPE_REACH_END ||
+                        itemViewType == TYPE_LOAD_FAILED) {
                         return layoutManager.spanCount
                     } else if (originalSizeLookup != null) {
                         return originalSizeLookup.getSpanSize(position)
@@ -410,9 +412,11 @@ class LoadMoreAdapter internal constructor(
         }
     }
 
-    class LoadFailedHolder internal constructor(itemView: View,
+    class LoadFailedHolder internal constructor(
+        itemView: View,
         private val loadMoreController: LoadMoreController,
-        val listener: OnLoadMoreListener?) : RecyclerView.ViewHolder(itemView) {
+        val listener: OnLoadMoreListener?
+    ) : RecyclerView.ViewHolder(itemView) {
         private val btnRetry = itemView.findViewById<View>(R.id.retry_button)
         private val textRetry = itemView.findViewById<TextView>(R.id.retry_message)
 
