@@ -105,11 +105,7 @@ class AppLocationService : Service() {
             .setContentTitle("getString(R.string.notif_title)")
             .setContentText("getString(R.string.notif_content)")
             .setOngoing(true)
-            .setPriority(
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                    NotificationManager.IMPORTANCE_HIGH
-                else Notification.PRIORITY_HIGH
-            )
+            .setPriority(NotificationCompat.PRIORITY_LOW)
             .setSmallIcon(R.drawable.ic_star)
             .setTicker(getString(R.string.app_name))
             .setWhen(System.currentTimeMillis())
@@ -123,7 +119,7 @@ class AppLocationService : Service() {
                 NotificationChannel(
                     CHANNEL_ID,
                     name,
-                    NotificationManager.IMPORTANCE_DEFAULT
+                    NotificationManager.IMPORTANCE_LOW
                 ).apply {
                     description = "getString(R.string.description)"
                 }

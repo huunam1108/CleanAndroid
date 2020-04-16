@@ -1,7 +1,6 @@
 package namnh.clean.data.repository.source.remote.api
 
 import com.google.gson.Gson
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import java.util.concurrent.TimeUnit
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -29,7 +28,6 @@ object ServiceGenerator {
             .writeTimeout(WRITE_TIMEOUT, TimeUnit.MILLISECONDS)
         val retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpBuilder.build())
             .build()

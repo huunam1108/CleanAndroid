@@ -5,19 +5,23 @@ import namnh.clean.domain.entity.BaseEntity
 @Suppress("unused")
 open class DataMapper {
 
-    open fun <R : BaseEntity> map(): (MapAbleData<R>) -> R = {
-        it.map()
+    open fun <R : BaseEntity> map(data: MapAbleData<R>): R {
+        return data.map()
     }
 
-    open fun <R : BaseEntity> nullableMap(): (MapAbleData<R>?) -> R? = {
-        it?.map()
+    open fun <R : BaseEntity> nullableMap(data: MapAbleData<R>?): R? {
+        return data?.map()
     }
 
-    open fun <R : BaseEntity> collectionMap(): (Collection<MapAbleData<R>>) -> List<R> = {
-        it.map(map())
+    open fun <R : BaseEntity> collectionMap(collections: Collection<MapAbleData<R>>): List<R> {
+        return collections.map {
+            map(it)
+        }
     }
 
-    open fun <R : BaseEntity> nullableCollectionMap(): (Collection<MapAbleData<R>>?) -> List<R>? = {
-        it?.map(map())
+    open fun <R : BaseEntity> nullableCollectionMap(collections: Collection<MapAbleData<R>>?): List<R>? {
+        return collections?.map {
+            map(it)
+        }
     }
 }

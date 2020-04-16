@@ -1,13 +1,17 @@
 package namnh.clean.github.di
 
-import namnh.clean.data.executor.JobExecutor
-import namnh.clean.domain.executor.PostExecutionThread
-import namnh.clean.domain.executor.ThreadExecutor
-import namnh.clean.github.MainThread
+import namnh.clean.data.scheduler.DefaultDispatcher
+import namnh.clean.data.scheduler.IODispatcher
+import namnh.clean.domain.scheduler.DEFAULT
+import namnh.clean.domain.scheduler.DispatchersProvider
+import namnh.clean.domain.scheduler.IO
+import namnh.clean.domain.scheduler.MAIN
+import namnh.clean.github.MainDispatcher
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val appModule = module {
-    // Threading
-    single<PostExecutionThread> { /*PostExecutionThread*/ MainThread() }
-    single<ThreadExecutor> { /*ThreadExecutor*/ JobExecutor() }
+    single<DispatchersProvider>(named(IO)) { IODispatcher() }
+    single<DispatchersProvider>(named(DEFAULT)) { DefaultDispatcher() }
+    single<DispatchersProvider>(named(MAIN)) { MainDispatcher() }
 }

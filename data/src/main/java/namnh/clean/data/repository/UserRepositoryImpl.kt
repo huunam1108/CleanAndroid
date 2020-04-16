@@ -1,6 +1,5 @@
 package namnh.clean.data.repository
 
-import io.reactivex.Single
 import namnh.clean.data.model.DataMapper
 import namnh.clean.data.repository.source.local.UserLocalDataSource
 import namnh.clean.data.repository.source.remote.UserRemoteDataSource
@@ -13,9 +12,9 @@ class UserRepositoryImpl(
     private val dataMapper: DataMapper
 ) : UserRepository {
 
-    override fun loadUser(login: String): Single<User> {
-        return remoteDataSource.loadUser(login).doOnSuccess {
-            localDataSource.saveUser(it)
-        }.map(dataMapper.map())
+    override suspend fun loadUser(login: String): User {
+        val response = remoteDataSource.loadUser(login)
+        localDataSource.saveUser(response)
+        return dataMapper.map(response)
     }
 }

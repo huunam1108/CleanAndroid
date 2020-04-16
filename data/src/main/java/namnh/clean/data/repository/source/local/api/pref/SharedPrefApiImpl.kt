@@ -4,11 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import io.reactivex.Completable
-import io.reactivex.Single
-import io.reactivex.SingleEmitter
-import io.reactivex.SingleOnSubscribe
-import io.reactivex.schedulers.Schedulers
 import namnh.clean.data.repository.source.local.api.SharedPrefApi
 
 class SharedPrefApiImpl(context: Context, private val gson: Gson) : SharedPrefApi {
@@ -27,29 +22,6 @@ class SharedPrefApiImpl(context: Context, private val gson: Gson) : SharedPrefAp
         listener: SharedPreferences.OnSharedPreferenceChangeListener
     ) {
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(listener)
-    }
-
-    /**
-     * For working with a [Single] action
-     */
-    override fun <T> singlePref(action: (SingleEmitter<in T>) -> Unit): Single<T> {
-        return Single.create(SingleOnSubscribe<T> { emitter ->
-            action(emitter)
-        }).subscribeOn(Schedulers.io())
-    }
-
-    /**
-     * For working with a [Completable] action
-     */
-    override fun completablePref(action: (SharedPrefApi) -> Unit): Completable {
-        return Completable.create { emitter ->
-            try {
-                action(this)
-                emitter.onComplete()
-            } catch (e: Exception) {
-                emitter.onError(e)
-            }
-        }.subscribeOn(Schedulers.io())
     }
 
     override fun <T> put(key: String, data: T) {

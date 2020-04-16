@@ -26,10 +26,8 @@ object Versions {
     const val navigation = "2.2.0-rc02"
     const val okhttp_logging_interceptor = "3.9.0"
     const val retrofit = "2.6.2"
-    const val retrofit_adapter = "1.0.0"
-    const val room = "2.2.2"
-    const val rx_android = "2.1.0"
-    const val rxjava2 = "2.2.3"
+    const val room = "2.2.5"
+    const val room_coroutines = "2.1.0-alpha04"
     const val support = "1.1.0"
     const val constraint_layout = "1.1.3"
     const val material = "1.2.0-alpha02"
@@ -52,7 +50,7 @@ object Versions {
     const val lottie = "3.3.1"
     const val qr_code = "1.9.8"
     const val anko = "0.10.8"
-    const val coroutine = "1.3.2"
+    const val coroutines = "1.3.2"
 }
 
 @Suppress("unused")
@@ -82,7 +80,7 @@ object Plugins {
     const val googleServices = "com.google.gms.google-services"
     const val ossLicenses = "com.google.android.gms.oss-licenses-plugin"
     const val detekt = "io.gitlab.arturbosch.detekt"
-    const val fabric = "io.fabric"
+    const val fabric = "io.fabric"dete
 }
 
 @Suppress("unused")
@@ -102,8 +100,9 @@ object Deps {
 
     const val room_runtime = "androidx.room:room-runtime:${Versions.room}"
     const val room_compiler = "androidx.room:room-compiler:${Versions.room}"
-    const val room_rxjava2 = "androidx.room:room-rxjava2:${Versions.room}"
     const val room_testing = "androidx.room:room-testing:${Versions.room}"
+    const val room_coroutines = "androidx.room:room-coroutines:${Versions.room_coroutines}"
+    const val room_ktx = "androidx.room:room-ktx:${Versions.room}"
 
     const val lifecycle_runtime = "androidx.lifecycle:lifecycle-runtime:${Versions.lifecycle}"
     const val lifecycle_java8 = "androidx.lifecycle:lifecycle-common-java8:${Versions.lifecycle}"
@@ -118,8 +117,6 @@ object Deps {
     const val retrofit_runtime = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val retrofit_gson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
     const val retrofit_mock = "com.squareup.retrofit2:retrofit-mock:${Versions.retrofit}"
-    const val retrofit_adapter =
-        "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${Versions.retrofit_adapter}"
     const val okhttp_logging_interceptor =
         "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp_logging_interceptor}"
 
@@ -151,8 +148,6 @@ object Deps {
         "androidx.constraintlayout:constraintlayout:${Versions.constraint_layout}"
     const val junit = "junit:junit:${Versions.junit}"
     const val mock_web_server = "com.squareup.okhttp3:mockwebserver:${Versions.mockwebserver}"
-    const val rxjava2 = "io.reactivex.rxjava2:rxjava:${Versions.rxjava2}"
-    const val rx_android = "io.reactivex.rxjava2:rxandroid:${Versions.rx_android}"
 
     const val work_runtime = "androidx.work:work-runtime:${Versions.work}"
     const val work_testing = "androidx.work:work-testing:${Versions.work}"
@@ -196,8 +191,8 @@ object Deps {
     const val anko_core = "org.jetbrains.anko:anko:${Versions.anko}"
     const val anko_design = "org.jetbrains.anko:anko-design:${Versions.anko}"
 
-    const val coroutine_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutine}"
-    const val coroutine_android =
-        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutine}"
-    const val coroutine_test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutine}"
+    const val coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+    const val coroutines_android =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+    const val coroutines_test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
 }

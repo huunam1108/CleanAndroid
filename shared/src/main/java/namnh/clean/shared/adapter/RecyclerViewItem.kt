@@ -2,7 +2,6 @@
 package namnh.clean.shared.adapter
 
 interface RecyclerViewItem {
-    @setparam: RecyclerType
-    var type: Int
+    val type: Int
         @RecyclerType get
 }

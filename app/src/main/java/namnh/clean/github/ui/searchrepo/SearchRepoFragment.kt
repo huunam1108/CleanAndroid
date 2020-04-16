@@ -3,43 +3,31 @@ package namnh.clean.github.ui.searchrepo
 import android.content.Context
 import android.os.Bundle
 import android.os.IBinder
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_search_repo.*
 import namnh.clean.github.R
-import namnh.clean.github.model.state.Error
-import namnh.clean.github.model.state.Finish
-import namnh.clean.github.model.state.Loading
-import namnh.clean.github.model.state.Success
+import namnh.clean.github.databinding.FragmentSearchRepoBinding
+import namnh.clean.github.helper.autoCleared
+import namnh.clean.github.ui.base.BaseFragment
 import namnh.clean.github.ui.searchrepo.adapter.SearchRepoAdapter
 import namnh.clean.shared.adapter.loadmore.LoadMoreAdapter
 import namnh.clean.shared.adapter.loadmore.LoadMoreController
 import namnh.clean.shared.adapter.loadmore.LoadMoreWrapper
-import namnh.clean.shared.util.autoCleared
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SearchRepoFragment : Fragment() {
+class SearchRepoFragment : BaseFragment<FragmentSearchRepoBinding, SearchRepoViewModel>() {
 
+    override val viewModel: SearchRepoViewModel by viewModel()
+    override val layoutResId: Int = R.layout.fragment_search_repo
     private val searchRepoViewModel: SearchRepoViewModel by viewModel()
     private var repoAdapter by autoCleared<SearchRepoAdapter>()
     private var loadMoreController: LoadMoreController? = null
     private var currentPage: Int = INITIAL_PAGE
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_search_repo, container, false)
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -68,28 +56,20 @@ class SearchRepoFragment : Fragment() {
     }
 
     private fun observers() {
-        searchRepoViewModel.results.observe(viewLifecycleOwner, Observer { state ->
-            when (state.status) {
-                is Loading -> {
-                    progress.visibility = View.VISIBLE
-                }
-                is Finish -> {
-                    progress.visibility = View.GONE
-                }
-                is Success -> {
+        searchRepoViewModel.results.observe(viewLifecycleOwner) { state ->
+            if (state.isSuccess) {
+                repoAdapter.apply {
                     state.data?.let {
-                        repoAdapter.submitList(it)
+                        submitList(currentList.plus(it))
                     }
-                    // FIXME: This just for sample app, don't do this
                     if (currentPage == 5) {
                         loadMoreController?.setReachEnd(true)
                     }
                 }
-                is Error -> {
-                    Toast.makeText(context, "Can not get data!", Toast.LENGTH_LONG).show()
-                }
+            } else if (state.isError) {
+                Toast.makeText(context, "Error load data", Toast.LENGTH_SHORT).show()
             }
-        })
+        }
     }
 
     private fun initSearchInputListener() {
@@ -104,6 +84,7 @@ class SearchRepoFragment : Fragment() {
 
     private fun doSearch(textView: TextView) {
         dismissKeyboard(textView.windowToken)
+        repoAdapter.submitList(null)
         searchRepoViewModel.setQuery(textView.text.toString())
     }
 

@@ -1,6 +1,5 @@
 package namnh.clean.github.di
 
-import namnh.clean.domain.interactor.usecase.SearchReposUseCase
 import namnh.clean.github.ui.searchrepo.SearchRepoViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -11,11 +10,6 @@ import org.koin.dsl.module
  */
 val viewModelModule = module {
     viewModel {
-        SearchRepoViewModel(
-            SearchReposUseCase(/*ThreadExecutor*/get(),
-                /*PostThreadExecution*/get(),
-                /*RepoRepository*/get()
-            ), /*RepoModelMapper*/get()
-        )
+        SearchRepoViewModel(get(), get())
     }
 }

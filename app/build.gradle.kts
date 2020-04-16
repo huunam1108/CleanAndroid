@@ -66,6 +66,10 @@ android {
     tasks.withType<KotlinCompile> {
         kotlinOptions.jvmTarget = "1.8"
     }
+
+    dataBinding {
+        isEnabled = true
+    }
 }
 
 androidExtensions {
@@ -114,16 +118,11 @@ dependencies {
     implementation(Deps.glide_runtime)
 
     implementation(Deps.room_runtime)
-    implementation(Deps.room_rxjava2)
     kapt(Deps.room_compiler)
 
     implementation(Deps.retrofit_runtime)
-    implementation(Deps.retrofit_adapter)
     implementation(Deps.retrofit_gson)
     implementation(Deps.okhttp_logging_interceptor)
-
-    implementation(Deps.rx_android)
-    implementation(Deps.rxjava2)
 
     implementation(Deps.firebase_analytics)
     implementation(Deps.dexter)

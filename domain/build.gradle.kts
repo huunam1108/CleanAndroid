@@ -18,6 +18,10 @@ tasks {
 
 dependencies {
     implementation(Deps.kotlin_stdlib)
-    implementation(Deps.rxjava2)
+    implementation(Deps.koin_ext)
+
+    implementation(Deps.coroutines_core)
+    testImplementation(Deps.coroutines_test)
+
     testImplementation(Deps.junit)
 }

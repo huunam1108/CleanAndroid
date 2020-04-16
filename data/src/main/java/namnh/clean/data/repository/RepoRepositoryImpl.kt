@@ -1,6 +1,5 @@
 package namnh.clean.data.repository
 
-import io.reactivex.Single
 import namnh.clean.data.model.DataMapper
 import namnh.clean.data.repository.source.local.RepoLocalDataSource
 import namnh.clean.data.repository.source.remote.RepoRemoteDataSource
@@ -13,12 +12,9 @@ class RepoRepositoryImpl(
     private val dataMapper: DataMapper
 ) : RepoRepository {
 
-    override fun search(query: String, page: Int): Single<List<Repo>> {
-        return remoteDataSource.searchRepos(query, page).map { responses ->
-            responses.items.map {
-                localDataSource.saveRepos(it)
-            }
-            responses.items
-        }.map(dataMapper.collectionMap())
+    override suspend fun search(query: String, page: Int): List<Repo> {
+        val response = remoteDataSource.searchRepos(query = query, page = page)
+        localDataSource.saveRepos(response.items)
+        return dataMapper.collectionMap(response.items)
     }
 }

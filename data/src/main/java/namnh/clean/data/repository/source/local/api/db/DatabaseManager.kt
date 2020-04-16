@@ -7,7 +7,7 @@ import namnh.clean.data.model.RepoData
 import namnh.clean.data.model.UserData
 import namnh.clean.data.repository.source.local.api.db.dao.RepoDao
 import namnh.clean.data.repository.source.local.api.db.dao.UserDao
-import namnh.clean.shared.config.DatabaseConfig
+import namnh.clean.data.repository.source.config.DatabaseConfig
 
 @Database(
     entities = [UserData::class, RepoData::class],

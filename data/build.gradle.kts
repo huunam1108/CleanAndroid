@@ -51,17 +51,17 @@ dependencies {
     implementation(Deps.support_app_compat)
     implementation(Deps.support_core_ktx)
 
-    implementation(Deps.rxjava2)
+    implementation(Deps.coroutines_core)
+    implementation(Deps.coroutines_android)
 
     kapt(Deps.room_compiler)
     implementation(Deps.room_runtime)
-    implementation(Deps.room_rxjava2)
     implementation(Deps.room_testing)
+    implementation(Deps.room_ktx)
 
     implementation(Deps.retrofit_runtime)
     implementation(Deps.retrofit_gson)
     implementation(Deps.okhttp_logging_interceptor)
-    implementation(Deps.retrofit_adapter)
 
     implementation(Deps.koin_android)
 

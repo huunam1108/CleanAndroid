@@ -12,3 +12,4 @@ const val TYPE_UNKNOWN = -1
 const val TYPE_HEADER = 0
 const val TYPE_ITEM = 1
 const val TYPE_FOOTER = 2
+const val TYPE_REPO = 3

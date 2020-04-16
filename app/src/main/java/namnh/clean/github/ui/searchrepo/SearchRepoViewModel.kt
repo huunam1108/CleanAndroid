@@ -3,13 +3,12 @@ package namnh.clean.github.ui.searchrepo
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
 import java.util.*
-import namnh.clean.domain.entity.Repo
-import namnh.clean.domain.interactor.outputport.SingleObserver
-import namnh.clean.domain.interactor.usecase.SearchReposUseCase
+import kotlinx.coroutines.launch
+import namnh.clean.data.ProcessState
+import namnh.clean.domain.usecase.SearchReposUseCase
 import namnh.clean.github.model.mapper.RepoModelMapper
-import namnh.clean.github.model.state.ProcessState
+import namnh.clean.github.ui.base.BaseViewModel
 import namnh.clean.github.ui.searchrepo.adapter.SearchRepoItem
 import namnh.clean.shared.adapter.RecyclerViewItem
 import namnh.clean.shared.livedata.AbsentLiveData
@@ -17,12 +16,11 @@ import namnh.clean.shared.livedata.AbsentLiveData
 class SearchRepoViewModel(
     private val searchReposUseCase: SearchReposUseCase,
     private val repoModelMapper: RepoModelMapper
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val query = MutableLiveData<String>()
     private val nextPage = MutableLiveData<Int?>().apply { value = 1 }
-    private var searchData = mutableListOf<RecyclerViewItem>()
-    val results: LiveData<ProcessState<List<RecyclerViewItem>>> = Transformations
+    val results: LiveData<ProcessState<List<RecyclerViewItem>?>> = Transformations
         .switchMap(query) { search ->
             if (search.isNullOrBlank()) {
                 AbsentLiveData.create()
@@ -30,6 +28,10 @@ class SearchRepoViewModel(
                 searchRepo(search, nextPage.value ?: 1)
             }
         }
+
+    init {
+        addSource(results)
+    }
 
     fun setQuery(originalInput: String) {
         val input = originalInput.toLowerCase(Locale.getDefault()).trim()
@@ -48,35 +50,22 @@ class SearchRepoViewModel(
     private fun searchRepo(
         query: String,
         page: Int = 1
-    ): LiveData<ProcessState<List<RecyclerViewItem>>> {
-        val liveData = MutableLiveData<ProcessState<List<RecyclerViewItem>>>()
-        searchReposUseCase.execute(
-            SearchReposUseCase.Input(query, page),
-            object : SingleObserver<List<Repo>>() {
-                override fun onSubscribe() {
-                    if (page == 1) {
-                        liveData.value = ProcessState.loading()
+    ): LiveData<ProcessState<List<RecyclerViewItem>?>> {
+        val liveData = MutableLiveData<ProcessState<List<RecyclerViewItem>?>>()
+        scope.launch {
+            searchReposUseCase(SearchReposUseCase.Input(query = query, page = page)) {
+                onSubscribe { liveData.value = ProcessState.loading() }
+                onSuccess { repos ->
+                    repos?.let { list ->
+                        val repoItems = list.map {
+                            SearchRepoItem(repoModelMapper.map(it))
+                        }
+                        liveData.value = ProcessState.success(repoItems)
                     }
                 }
-
-                override fun onSuccess(data: List<Repo>) {
-                    if (page == 1) {
-                        searchData = searchData.dropLast(searchData.size).toMutableList()
-                    }
-                    searchData.addAll(repoModelMapper.collectionMap(data).map { model ->
-                        SearchRepoItem(model)
-                    })
-                    liveData.value = ProcessState.success(searchData.toList())
-                }
-
-                override fun onError(throwable: Throwable) {
-                    liveData.value = ProcessState.error(throwable)
-                }
-
-                override fun doFinally() {
-                    liveData.value = ProcessState.finish()
-                }
-            })
+                onError { liveData.value = ProcessState.error(it) }
+            }
+        }
         return liveData
     }
 }
